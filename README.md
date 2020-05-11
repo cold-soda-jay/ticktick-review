@@ -27,8 +27,8 @@ See documentation here: [OneDrive authentication and sign-in](https://docs.micro
 
 ## Todo
 
-[ ] Save the review local.
+- [ ] Save the review local.
 
-[ ] Multi language
+- [ ] Multi language
 
-[ ] [dida365.com](https://dida364.com) integration
+- [ ] [dida365.com](https://dida364.com) integration
