@@ -20,21 +20,6 @@ import util as ut
 from template import head, td_html, wk_html
 from ticktick import TickTick
 
-sys.path.append("/home/pi/TeleMaster/")
-
-
-
-
-
-#time.sleep(30)
-
-
-
-
-
-
-#client = onedrive.init_onedrive()
-#tick_client=TickTick(username=username,password=password)
 
 path_of_log='../'
 path_of_login_data = ut.path_of_logindata
