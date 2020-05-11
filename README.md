@@ -5,7 +5,7 @@ Ticktick Daily Review is a program help you to check daily finished and unfinish
 
 ## Usage
 
-Execute `chatbot.py init` to initialize the chatbot. You need to prepare your chatbot account, telegrambot Token and your onedrevi client id and client secret.
+Execute `chatbot.py init` to initialize the chatbot. You need to prepare your **chatbot account**, **telegrambot Token** and your **onedrevi client id** and **client secret**.
 
 ### Ticktick.com
 
