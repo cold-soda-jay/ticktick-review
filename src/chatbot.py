@@ -47,40 +47,35 @@ logger.info('--> Bot started!')
 @bot.message_handler(commands=['start', 'help'])
 def sartInfo(message):
     userid = str(message.from_user.id)
-    if userid != '781549524':
-        bot.send_message('781549524','Unknow contact from: @%s\nContent:%s'%(message.from_user.username,message.text))
-        return
+    try:
+        with open(cachePath, "rt", encoding='utf-8') as log:
+            reader = csv.DictReader(log)
+            default_user = [row['userID'] for row in reader][0]
+        if userid != default_user :
+            bot.send_message(default_user,
+                            'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
+            return
+    except:
+        init_cache(userid)
     for cmd in command_list:
         bot.send_message(userid,'/%s'%cmd)
     init_cache(userid)
     return
 
-@bot.message_handler(commands=['library'])
-def lib(message):
-    userid = str(message.from_user.id)
-    if userid != '781549524':
-        bot.send_message('781549524','Unknow contact from: @%s\nContent:%s'%(message.from_user.username,message.text))
-        return
-    info=ut.get_seat_info()
-    bot.send_message(userid,'%s'%info)
-    return
-
-@bot.message_handler(commands=['film'])
-def film(message):
-    userid = str(message.from_user.id)
-    if userid != '781549524':
-        bot.send_message('781549524','Unknow contact from: @%s\nContent:%s'%(message.from_user.username,message.text))
-        return
-    os.system('python3 /home/pi/FilmScrap/src/thefilmwacher.py')
-    bot.send_message(userid,'Sending EMail...')
-    return
 
 @bot.message_handler(commands=['day'])
 def dayy(message):
     userid = str(message.from_user.id)
-    if userid != '781549524':
-        bot.send_message('781549524','Unknow contact from: @%s\nContent:%s'%(message.from_user.username,message.text))
-        return
+    try:
+        with open(cachePath, "rt", encoding='utf-8') as log:
+                reader = csv.DictReader(log)
+                default_user = [row['userID'] for row in reader][0]
+        if userid != default_user :
+                bot.send_message(default_user,
+                                'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
+                return
+    except:
+            init_cache(userid)
     try:
         td = ut.get_modified_sum(tick=tick_client, datekey=message.text[5:])
         ut.write_user_cache(userid, 'summary', td)
@@ -95,10 +90,16 @@ def dayy(message):
 @bot.message_handler(commands=['week'])
 def weeek(message):
     userid = str(message.from_user.id)
-    if userid != '781549524':
-        bot.send_message('781549524',
-                        'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
-        return
+    try:
+        with open(cachePath, "rt", encoding='utf-8') as log:
+                reader = csv.DictReader(log)
+                default_user = [row['userID'] for row in reader][0]
+        if userid != default_user :
+                bot.send_message(default_user,
+                                'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
+                return
+    except:
+            init_cache(userid)
     try:
         td = ut.get_modified_sum(tick_client,message.text[6:],week=True)
         ut.write_user_cache(userid, 'summary', td)
@@ -115,9 +116,16 @@ def weeek(message):
 @bot.message_handler(commands=['today'])
 def today(message):
     userid = str(message.from_user.id)
-    if userid != '781549524':
-        bot.send_message('781549524','Unknow contact from: @%s\nContent:%s'%(message.from_user.username,message.text))
-        return
+    try:
+        with open(cachePath, "rt", encoding='utf-8') as log:
+                reader = csv.DictReader(log)
+                default_user = [row['userID'] for row in reader][0]
+        if userid != default_user :
+                bot.send_message(default_user,
+                    'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
+                return
+    except:
+            init_cache(userid)
     td = ut.get_Summary(tick_client,'today')
     ut.write_user_cache(userid, 'summary', td)
     bot.send_message(message.chat.id,'Daily review:\n%s'%td,parse_mode="HTML")
@@ -129,9 +137,16 @@ def today(message):
 @bot.message_handler(commands=['thisWK','thiswk'])
 def thisWK(message):
     userid = str(message.from_user.id)
-    if userid != '781549524':
-        bot.send_message('781549524','Unknow contact from: @%s\nContent:%s'%(message.from_user.username,message.text))
-        return
+    try:
+        with open(cachePath, "rt", encoding='utf-8') as log:
+                reader = csv.DictReader(log)
+                default_user = [row['userID'] for row in reader][0]
+        if userid != default_user :
+                bot.send_message(default_user,
+                                'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
+                return
+    except:
+            init_cache(userid)
     td = ut.get_Summary(tick_client,'thiswk')
     ut.write_user_cache(userid, 'summary', td)
     bot.send_message(message.chat.id,'Weekly review:\n%s'%td,parse_mode="HTML")
@@ -145,9 +160,16 @@ def thisWK(message):
 @bot.message_handler(commands=['lastWK','lastwk'])
 def lastWK(message):
     userid = str(message.from_user.id)
-    if userid != '781549524':
-        bot.send_message('781549524','Unknow contact from: @%s\nContent:%s'%(message.from_user.username,message.text))
-        return
+    try:
+        with open(cachePath, "rt", encoding='utf-8') as log:
+                reader = csv.DictReader(log)
+                default_user = [row['userID'] for row in reader][0]
+        if userid != default_user :
+                bot.send_message(default_user,
+                                'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
+                return
+    except:
+            init_cache(userid)
     td = ut.get_Summary(tick_client,'lastwk')
     ut.write_user_cache(userid, 'summary', td)
     bot.send_message(message.chat.id, 'Weekly review:\n%s' %td,parse_mode="HTML")
@@ -161,9 +183,16 @@ def lastWK(message):
 @bot.message_handler(commands=['yesterday','yd'])
 def yesterdAY(message):
     userid = str(message.from_user.id)
-    if userid != '781549524':
-        bot.send_message('781549524','Unknow contact from: @%s\nContent:%s'%(message.from_user.username,message.text))
-        return
+    try:
+        with open(cachePath, "rt", encoding='utf-8') as log:
+                reader = csv.DictReader(log)
+                default_user = [row['userID'] for row in reader][0]
+        if userid != default_user :
+                bot.send_message(default_user,
+                                'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
+                return
+    except:
+            init_cache(userid)
     td = ut.get_Summary(tick_client,'yesterday')
     ut.write_user_cache(userid, 'summary', td)
     bot.send_message(message.chat.id, 'Daily review:\n%s' % td,parse_mode="HTML")
@@ -175,16 +204,18 @@ def yesterdAY(message):
 
 def get_input(messages):
     for message in messages:
-
         userid=str(message.from_user.id)
-        if userid != '781549524':
-            bot.send_message('781549524',
-                            'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
-            return
-        with open(cachePath, "rt", encoding='utf-8') as log:
-            reader = csv.DictReader(log)
-            userList = [row['userID'] for row in reader]
-        if userid not in userList:
+        try:
+            with open(cachePath, "rt", encoding='utf-8') as log:
+                reader = csv.DictReader(log)
+                userList = [row['userID'] for row in reader]
+            if userid not in userList:
+                init_cache(userid)
+            elif userid != userList[0]:
+                bot.send_message(userList[0],
+                                'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
+                return
+        except:
             init_cache(userid)
         logger.info(u'%s'%str(message.text))
         if message.from_user.first_name.lower() != 'joe':
