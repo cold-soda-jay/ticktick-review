@@ -15,7 +15,7 @@ from ticktick import TickTick
 
 fieldnames = ['userID','status','summary','time','star','comment']
 logPath='cache.csv'
-path_of_logindata = './data.csv'
+path_of_logindata = 'data.csv'
 
 def init_keydict():
     today=dt.date.today()
