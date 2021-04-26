@@ -82,7 +82,7 @@ def dayy(message):
         bot.send_message(message.chat.id,'Daily Review:\n%s'%td,parse_mode="HTML")
         bot.send_message(message.chat.id, 'Please rate today with number of ⭐(1,2,3...)!')
         ut.write_user_cache(userid,'status','starsTD')
-        ut.write_user_cache(userid,'time',datetime.date.today())
+        ut.write_user_cache(userid,'time', datetime.datetime.strptime(message.text[5:],'%Y-%m-%d').date())#datetime.date.today())
     except:
         bot.send_message(message.chat.id, 'Wrong format！eg: /day 2020-4-1')
     return
@@ -133,6 +133,15 @@ def today(message):
     ut.write_user_cache(userid,'status','starsTD')
     ut.write_user_cache(userid,'time',datetime.date.today())
     return
+
+@bot.message_handler(commands=['library'])
+def library(message):
+    userid = str(message.from_user.id)
+
+    result = ut.get_seat_info()
+    bot.send_message(message.chat.id, result)
+    return
+
 
 @bot.message_handler(commands=['thisWK','thiswk'])
 def thisWK(message):
@@ -204,6 +213,11 @@ def yesterdAY(message):
 
 def get_input(messages):
     for message in messages:
+        if message.from_user.username != 'YohoNerv':
+            bot.send_message(message.from_user.id, "Invalid used!!")
+            bot.send_message(userList[0],
+                                'Unknow contact from: @%s\nContent:%s' % (message.from_user.username, message.text))
+            continue
         userid=str(message.from_user.id)
         try:
             with open(cachePath, "rt", encoding='utf-8') as log:
@@ -246,6 +260,8 @@ def get_input(messages):
             wk = td[:i - 2]
             month_num = datetime.datetime.today().month
             time = ut.get_user_cache(userid, 'time')
+            month_num = str(time)[5:-2].replace('-','')
+
             tody = ut.get_user_cache(userid, 'summary')
             stars = ut.get_user_cache(userid, 'star')
             comm=ut.get_user_cache(userid, 'comment')

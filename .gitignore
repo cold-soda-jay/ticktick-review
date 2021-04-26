@@ -1,22 +1,14 @@
 
-.vscode/.ropeproject/config.py
-
-.vscode/.ropeproject/objectdb
-
-logs/2020-05-11/RecoBotlog.log
-
-src/__pycache__/cypter.cpython-37.pyc
-
-src/__pycache__/onedrive.cpython-37.pyc
-
-src/__pycache__/template.cpython-37.pyc
-
-src/__pycache__/ticktick.cpython-37.pyc
-
-src/__pycache__/util.cpython-37.pyc
+.vscode/
 
 src/cache.csv
 
 src/data.csv
 
-logs/2020-06-03/RecoBotlog.log
+logs/
+
+src/__pycache__/
+
+.idea/
+
+src/debug.log
